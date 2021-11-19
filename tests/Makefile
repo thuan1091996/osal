@@ -68,7 +68,7 @@ CROSS_COMPILE ?=
 ifeq ($(UNAME_S),Darwin)
 CC  = ccache $(CROSS_COMPILE)llvm-gcc
 CPP = ccache $(CROSS_COMPILE)llvm-g++
-LD  = $(CROSS_COMPILE)ld
+LD  = $(CROSS_COMPILE)llvm-g++
 AR  = $(CROSS_COMPILE)ar
 else
 CC  = ccache $(CROSS_COMPILE)gcc
