@@ -42,8 +42,12 @@ chip_os_error_t chip_os_task_init(struct chip_os_task * task, const char * name,
 
     task->func = func;
     task->arg  = arg;
-
+#if (CONFIG_IDF_CMAKE)
+    err = xTaskCreate(chip_os_task_dispatch, name, stack_size, task, prio, &task->handle);
+#else
     err = xTaskCreate(chip_os_task_dispatch, name, stack_size / sizeof(chip_os_base_t), task, prio, &task->handle);
+#endif /* End of (CONFIG_IDF_CMAKE) */
+
 
     return (err == pdPASS) ? CHIP_OS_OK : CHIP_OS_ENOMEM;
 }
