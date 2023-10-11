@@ -22,6 +22,10 @@
 
 #include <stdbool.h>
 
+#ifdef CONFIG_IDF_TARGET
+#include <freertos/FreeRTOS.h>
+#endif
+
 #if CHIP_DEVICE_LAYER_TARGET_NRF5
 #include <nrf52840.h>
 
@@ -35,7 +39,7 @@ static inline bool chip_hw_in_isr()
 
 static inline bool chip_hw_in_isr()
 {
-    return false;
+    return (pdTRUE == xPortInIsrContext());
 }
 
 #endif // CHIP_DEVICE_LAYER_TARGET_NRF5
